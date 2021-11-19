@@ -4,20 +4,20 @@ export const CREATE_FUSD_VAULT = `
 
   transaction {
     prepare(signer: AuthAccount) {
-      if(signer.borrow<&FUSD.Vault>(from: /storage/cryptomonfusdVault) != nil) {
+      if(signer.borrow<&FUSD.Vault>(from: /storage/fusdVault) != nil) {
         return
       }
     
-      signer.save(<-FUSD.createEmptyVault(), to: /storage/cryptomonfusdVault)
+      signer.save(<-FUSD.createEmptyVault(), to: /storage/fusdVault)
 
       signer.link<&FUSD.Vault{FungibleToken.Receiver}>(
-        /public/cryptomonfusdReceiver,
-        target: /storage/cryptomonfusdVault
+        /public/fusdReceiver,
+        target: /storage/fusdVault
       )
 
       signer.link<&FUSD.Vault{FungibleToken.Balance}>(
-        /public/cryptomonfusdBalance,
-        target: /storage/cryptomonfusdVault
+        /public/fusdBalance,
+        target: /storage/fusdVault
       )
     }
   }

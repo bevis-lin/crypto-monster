@@ -4,7 +4,7 @@ import FUSD from 0xFUSD
 
 pub fun main(address:Address) : UFix64? {
  let account = getAccount(address)
- if let vaultRef = account.getCapability(/public/cryptomonfusdBalance).borrow<&FUSD.Vault{FungibleToken.Balance}>(){
+ if let vaultRef = account.getCapability(/public/fusdBalance).borrow<&FUSD.Vault{FungibleToken.Balance}>(){
    return vaultRef.balance
  }
  return nil
